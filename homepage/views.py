@@ -7,3 +7,6 @@ from django.utils import timezone
 
 def homepage(request):
     return render(request,'homepage/homepage.html')
+
+def homepage0(request):
+    return render(request,'homepage/homepage0.html')

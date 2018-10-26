@@ -29,7 +29,8 @@
 	<link rel="stylesheet" href="{% static 'homepage/css/icomoon.css' %}">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="{% static 'homepage/css/bootstrap.css' %}">
-
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="{% static 'homepage/css/magnific-popup.css' %}">
 
@@ -98,11 +99,17 @@
 										<li><a href="#">WordPress</a></li>
 									</ul>
 								</li>
-								<li><a href="teachers.html">Teachers</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="event.html">Events</a></li>
-								<li><a href="news.html">News</a></li>
-								<li><a href="contact.html">Contact</a></li>
+
+                                {% if user.is_authenticated %}
+                                <li class="btn-cta"><a href="#" onClick="document.getElementById('logout').submit()">Logout</a></li>
+                                <form id="logout" method="POST" action="{% url 'accounts:logout' %}">
+                                  {% csrf_token %}
+                                  <input type="hidden">
+                                </form>
+                                {% else %}
+                                <li class="active"><a href="{% url 'accounts:signup' %}">Signup</a></li>
+                                <li class="active"><a href="{% url 'accounts:login' %}">Login</a></li>
+                                {% endif %}
 								<li class="btn-cta"><a href="#"><span>Get started</span></a></li>
 							</ul>
 						</div>
@@ -239,6 +246,8 @@
 		<div id="colorlib-services">
 			<div class="container">
 				<div class="row">
+                    {% block content %}
+                    {% endblock %}
 					<div class="col-md-12 services-wrap">
 						<div class="row">
 							<div class="col-md-2 col-sm-6 text-center animate-box">
